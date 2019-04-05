@@ -1,4 +1,4 @@
-package learning.java.index;
+package learning.java.sandbox;
 
 import org.junit.jupiter.api.Test;
 
