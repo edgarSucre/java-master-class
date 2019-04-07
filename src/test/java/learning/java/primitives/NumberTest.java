@@ -4,14 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import javax.swing.text.html.Option;
-
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class NumberTest {
+
+    Number number = new Number();
 
     @Test
     public void numbersPrimitivesSupportUnderscore() {
@@ -23,7 +22,6 @@ class NumberTest {
     @NullAndEmptySource
     @ValueSource(strings = {"9999999999999", "99", "0.56", "400d", "NotANumber"})
     public void parsingIntegerFailOfter(String argument) {
-        Number number = new Number();
         Optional<Long> valueLong = number.parsingIntegers(argument);
         Long response = valueLong.orElse(0L);
 
@@ -34,7 +32,6 @@ class NumberTest {
     @NullAndEmptySource
     @ValueSource(strings = {"9999999999999", "99", "0.56", "400d", "NotANumber"})
     public void parsingDecimalsFailOften(String argument) {
-        Number number = new Number();
         Optional<Double> valueLong = number.parsingDecimals(argument);
         Double response = valueLong.orElse(0d);
 
