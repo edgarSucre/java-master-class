@@ -5,6 +5,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import javax.swing.text.html.Option;
+
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class NumberTest {
@@ -18,26 +22,22 @@ class NumberTest {
     @ParameterizedTest
     @NullAndEmptySource
     @ValueSource(strings = {"9999999999999", "99", "0.56", "400d", "NotANumber"})
-    public void parsingNumbersFailOften(String argument) {
+    public void parsingIntegerFailOfter(String argument) {
         Number number = new Number();
-        long overflow;
-        try{
-            overflow = number.parsingIntegers(argument);
-        }
-        catch (NumberFormatException e) {
-            //TODO: How to avoid try/catch nesting, with functional programming, Optional
-            try{
-                overflow = (long) number.parsingDecimals(argument);
-            }
-            catch (NumberFormatException e2) {
-                overflow = 0;
-            }
+        Optional<Long> valueLong = number.parsingIntegers(argument);
+        Long response = valueLong.orElse(0L);
 
-        }
-        catch (Exception e) {
-            overflow = 0;
-        }
+        assertTrue(response >= 0);
+    }
 
-        assertTrue(overflow >= 0);
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {"9999999999999", "99", "0.56", "400d", "NotANumber"})
+    public void parsingDecimalsFailOften(String argument) {
+        Number number = new Number();
+        Optional<Double> valueLong = number.parsingDecimals(argument);
+        Double response = valueLong.orElse(0d);
+
+        assertTrue(response >= 0);
     }
 }

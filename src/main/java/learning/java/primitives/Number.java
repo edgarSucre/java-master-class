@@ -1,21 +1,32 @@
 package learning.java.primitives;
 
+import java.util.Optional;
+
+
 public class Number {
 
     /*
      *  For integers is safer to to to the bigger integer available
      */
-    public long parsingIntegers(String value) {
-        if (value == null || value.isEmpty()) return 0;
-        return Long.parseLong(value);
+    public Optional<Long> parsingIntegers(String value) {
+        try {
+            return Optional.of(Long.parseLong(value));
+        }
+        catch (Exception ex) {
+            return Optional.empty();
+        }
     }
 
 
     /*
      * For decimals is double
      */
-    public double parsingDecimals(String value) {
-        if (value == null || value.isEmpty()) return 0;
-        return Double.parseDouble(value);
+    public Optional<Double> parsingDecimals(String value) {
+        try {
+            return Optional.of(Double.parseDouble(value));
+        }
+        catch (Exception ex) {
+            return Optional.empty();
+        }
     }
 }
