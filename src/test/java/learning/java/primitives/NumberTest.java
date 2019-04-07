@@ -17,7 +17,7 @@ class NumberTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    @ValueSource(strings = {"9999999999999", "99", "0.56", "400d"})
+    @ValueSource(strings = {"9999999999999", "99", "0.56", "400d", "NotANumber"})
     public void parsingNumbersFailOften(String argument) {
         Number number = new Number();
         long overflow;
@@ -25,7 +25,14 @@ class NumberTest {
             overflow = number.parsingIntegers(argument);
         }
         catch (NumberFormatException e) {
-            overflow = (long) number.parsingDecimals(argument);
+            //TODO: How to avoid try/catch nesting, with functional programming, Optional
+            try{
+                overflow = (long) number.parsingDecimals(argument);
+            }
+            catch (NumberFormatException e2) {
+                overflow = 0;
+            }
+
         }
         catch (Exception e) {
             overflow = 0;
