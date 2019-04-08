@@ -2,11 +2,13 @@ package learning.java.primitives;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
-import java.util.Optional;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NumberTest {
 
@@ -19,30 +21,63 @@ class NumberTest {
     }
 
     @ParameterizedTest
-    @NullAndEmptySource
-    @ValueSource(strings = {"9999999999999", "99", "0.56", "400d", "NotANumber"})
-    public void parsingIntegerFailOfter(String argument) {
-        Optional<Long> valueLong = number.parsingIntegers(argument);
-        Long response = valueLong.orElse(0L);
+    @MethodSource("stringLongProvider")
+    public void parsingIntegerFailOfter(String testCase, Long expected) {
+        Optional<Long> valueLong = number.parsingIntegers(testCase);
+        Long result = valueLong.orElse(0L);
 
-        assertTrue(response >= 0);
+        assertEquals(expected, result);
     }
 
     @ParameterizedTest
-    @NullAndEmptySource
-    @ValueSource(strings = {"9999999999999", "99", "0.56", "400d", "NotANumber"})
-    public void parsingDecimalsFailOften(String argument) {
-        Optional<Double> valueLong = number.parsingDecimals(argument);
-        Double response = valueLong.orElse(0d);
+    @MethodSource("stringDoublesProvider")
+    public void parsingDecimalsFailOften(String testCase, Double expected) {
+        Optional<Double> valueLong = number.parsingDecimals(testCase);
+        Double result = valueLong.orElse(0d);
 
-        assertTrue(response >= 0);
+        assertEquals(expected, result);
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = {4.36, 3.26, 3.59, 0, -1, -1.9})
-    public void roundUpTest(double score) {
-        Optional<Double> roundedOpt = number.roundUpScore(score);
-        var response = roundedOpt.orElse(0d);
-        assertTrue(response >= 0);
+    @MethodSource("roundUpTestProvider")
+    public void roundUpTest(double testCase, double expected) {
+        Optional<Double> roundedOpt = number.roundUpScore(testCase);
+        var result = roundedOpt.orElse(0d);
+        assertEquals(expected, result);
+    }
+
+    static Stream<Arguments> stringDoublesProvider() {
+      return Stream.of(
+              Arguments.arguments("9999999999999", 9999999999999.0d),
+              Arguments.arguments("99", 99.0d),
+              Arguments.arguments("0.56", 0.56d),
+              Arguments.arguments("400d", 400.0d),
+              Arguments.arguments("NotANumber", 0d),
+              Arguments.arguments(null, 0d),
+              Arguments.arguments("", 0d)
+      );
+    }
+
+    static Stream<Arguments> stringLongProvider() {
+        return Stream.of(
+                Arguments.arguments("9999999999999", 9999999999999L),
+                Arguments.arguments("99", 99L),
+                Arguments.arguments("0.56", 0L),
+                Arguments.arguments("400d", 0L),
+                Arguments.arguments("NotANumber", 0L),
+                Arguments.arguments(null, 0L),
+                Arguments.arguments("", 0L)
+        );
+    }
+
+    static Stream<Arguments> roundUpTestProvider() {
+        return Stream.of(
+            Arguments.arguments(4.36, 4.4d),
+            Arguments.arguments(3.26, 3.3d),
+            Arguments.arguments(3.59, 3.6d),
+            Arguments.arguments(0, 0.0d),
+            Arguments.arguments(-1, 0.0d),
+            Arguments.arguments(-1.9, 0.0d)
+        );
     }
 }
