@@ -21,7 +21,7 @@ class NumberTest {
     }
 
     @ParameterizedTest
-    @MethodSource("stringLongProvider")
+    @MethodSource("parseIntegerProvider")
     public void parsingIntegerFailOfter(String testCase, Long expected) {
         Optional<Long> valueLong = number.parsingIntegers(testCase);
         Long result = valueLong.orElse(0L);
@@ -30,7 +30,7 @@ class NumberTest {
     }
 
     @ParameterizedTest
-    @MethodSource("stringDoublesProvider")
+    @MethodSource("parseDecimalsProvider")
     public void parsingDecimalsFailOften(String testCase, Double expected) {
         Optional<Double> valueLong = number.parsingDecimals(testCase);
         Double result = valueLong.orElse(0d);
@@ -46,7 +46,7 @@ class NumberTest {
         assertEquals(expected, result);
     }
 
-    static Stream<Arguments> stringDoublesProvider() {
+    static Stream<Arguments> parseDecimalsProvider() {
       return Stream.of(
               Arguments.arguments("9999999999999", 9999999999999.0d),
               Arguments.arguments("99", 99.0d),
@@ -58,7 +58,7 @@ class NumberTest {
       );
     }
 
-    static Stream<Arguments> stringLongProvider() {
+    static Stream<Arguments> parseIntegerProvider() {
         return Stream.of(
                 Arguments.arguments("9999999999999", 9999999999999L),
                 Arguments.arguments("99", 99L),
