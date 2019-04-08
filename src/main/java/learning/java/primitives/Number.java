@@ -1,6 +1,9 @@
 package learning.java.primitives;
 
+import java.text.DecimalFormat;
 import java.util.Optional;
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
 
 
 public class Number {
@@ -10,10 +13,10 @@ public class Number {
      */
     public Optional<Long> parsingIntegers(String value) {
         try {
-            return Optional.of(Long.parseLong(value));
+            return of(Long.parseLong(value));
         }
         catch (Exception ex) {
-            return Optional.empty();
+            return empty();
         }
     }
 
@@ -23,10 +26,19 @@ public class Number {
      */
     public Optional<Double> parsingDecimals(String value) {
         try {
-            return Optional.of(Double.parseDouble(value));
+            return of(Double.parseDouble(value));
         }
         catch (Exception ex) {
-            return Optional.empty();
+            return empty();
         }
+    }
+
+    public Optional<Double> roundUpScore(double score) {
+        var wrapped = (Object) score;
+
+        if (wrapped == null || score < 0) return empty();
+
+        DecimalFormat ptyScoreFormater = new DecimalFormat("#.#");
+        return parsingDecimals(ptyScoreFormater.format(score));
     }
 }

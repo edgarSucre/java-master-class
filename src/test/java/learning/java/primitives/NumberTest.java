@@ -37,4 +37,12 @@ class NumberTest {
 
         assertTrue(response >= 0);
     }
+
+    @ParameterizedTest
+    @ValueSource(doubles = {4.36, 3.26, 3.59, 0, -1, -1.9})
+    public void roundUpTest(double score) {
+        Optional<Double> roundedOpt = number.roundUpScore(score);
+        var response = roundedOpt.orElse(0d);
+        assertTrue(response >= 0);
+    }
 }
