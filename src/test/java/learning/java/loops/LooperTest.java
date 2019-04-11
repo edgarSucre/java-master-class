@@ -12,8 +12,14 @@ class LooperTest {
 
     @ParameterizedTest
     @MethodSource("isPalindromeProvider")
-    void isPalindrome(int number, boolean result) {
+    public void isPalindrome(int number, boolean result) {
         assertEquals(Looper.isPalindrome(number), result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("sumFirstAndLastDigits")
+    public void sumFirstAndLastDigit(int number, int result) {
+        assertEquals(Looper.sumFirstAndLastDigit(number), result);
     }
 
     public static Stream<Arguments> isPalindromeProvider() {
@@ -23,6 +29,16 @@ class LooperTest {
                 Arguments.arguments(0, true),
                 Arguments.arguments(11, true),
                 Arguments.arguments(323354, false)
+        );
+    }
+
+    public static Stream<Arguments> sumFirstAndLastDigits() {
+        return Stream.of(
+                Arguments.arguments(252, 4),
+                Arguments.arguments(257, 9),
+                Arguments.arguments(0, 0),
+                Arguments.arguments(5, 10),
+                Arguments.arguments(-10, -1)
         );
     }
 }
