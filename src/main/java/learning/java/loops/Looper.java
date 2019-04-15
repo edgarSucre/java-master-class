@@ -62,6 +62,20 @@ public class Looper {
     }
 
     public static boolean isValid(int number) {
-        return number > 10 && number < 1000;
+        return number >= 10 && number <= 1000;
+    }
+
+    public static int getGreatestCommonDivisor(int first, int second) {
+        if (first < 10 || second < 10) return -1;
+
+        int minimun = 0;
+        int i = 1;
+        while (i <= first && i <= second) {
+            if (first % i == 0 && second % i == 0) {
+                minimun = i;
+            }
+            i++;
+        }
+        return minimun;
     }
 }

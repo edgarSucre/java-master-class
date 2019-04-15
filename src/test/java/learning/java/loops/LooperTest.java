@@ -40,6 +40,12 @@ class LooperTest {
         assertEquals(Looper.hasSameLastDigit(A, B, C), expected);
     }
 
+    @ParameterizedTest
+    @MethodSource("getGreatestCommonDivisorProvider")
+    public void getGreatestCommonDivisor(int A, int B, int expected) {
+        assertEquals(Looper.getGreatestCommonDivisor(A,B), expected);
+    }
+
     public static Stream<Arguments> isPalindromeProvider() {
         return Stream.of(
                 Arguments.arguments(12321, true),
@@ -82,6 +88,15 @@ class LooperTest {
             Arguments.arguments(41, 22, 71, true),
             Arguments.arguments(23, 32, 42, true),
             Arguments.arguments(9, 99, 999, false)
+        );
+    }
+
+    public static Stream<Arguments> getGreatestCommonDivisorProvider() {
+        return Stream.of(
+            Arguments.arguments(12, 30, 6),
+            Arguments.arguments(25, 15, 5),
+            Arguments.arguments(9, 18, -1),
+            Arguments.arguments(81, 153, 9)
         );
     }
 }
