@@ -17,9 +17,27 @@ class LooperTest {
     }
 
     @ParameterizedTest
-    @MethodSource("sumFirstAndLastDigits")
+    @MethodSource("sumFirstAndLastDigitsProvider")
     public void sumFirstAndLastDigit(int number, int result) {
         assertEquals(Looper.sumFirstAndLastDigit(number), result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("getEvenDigitsSumProvider")
+    public void getEvenDigitsSum(int number, int expected) {
+        assertEquals(Looper.getEvenDigitsSum(number), expected);
+    }
+
+    @ParameterizedTest
+    @MethodSource("hasSharedDigitProvider")
+    public void hasSharedDigitProvider(int A, int B, boolean expected) {
+        assertEquals(Looper.hasSharedDigit(A, B), expected);
+    }
+
+    @ParameterizedTest
+    @MethodSource("hasSameLastDigitProvider")
+    public void hasSameLastDigit(int A, int B, int C, boolean expected) {
+        assertEquals(Looper.hasSameLastDigit(A, B, C), expected);
     }
 
     public static Stream<Arguments> isPalindromeProvider() {
@@ -32,13 +50,38 @@ class LooperTest {
         );
     }
 
-    public static Stream<Arguments> sumFirstAndLastDigits() {
+    public static Stream<Arguments> sumFirstAndLastDigitsProvider() {
         return Stream.of(
                 Arguments.arguments(252, 4),
                 Arguments.arguments(257, 9),
                 Arguments.arguments(0, 0),
                 Arguments.arguments(5, 10),
                 Arguments.arguments(-10, -1)
+        );
+    }
+
+    public static Stream<Arguments> getEvenDigitsSumProvider() {
+        return Stream.of(
+            Arguments.arguments(123456789, 20),
+            Arguments.arguments(252, 4),
+            Arguments.arguments(-22, -1),
+            Arguments.arguments(0, 0)
+        );
+    }
+
+    public static Stream<Arguments> hasSharedDigitProvider() {
+        return Stream.of(
+            Arguments.arguments(12, 23, true),
+            Arguments.arguments(9, 23, false),
+            Arguments.arguments(15, 55, true)
+        );
+    }
+
+    public static Stream<Arguments> hasSameLastDigitProvider() {
+        return Stream.of(
+            Arguments.arguments(41, 22, 71, true),
+            Arguments.arguments(23, 32, 42, true),
+            Arguments.arguments(9, 99, 999, false)
         );
     }
 }
