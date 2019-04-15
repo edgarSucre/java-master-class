@@ -46,6 +46,12 @@ class LooperTest {
         assertEquals(Looper.getGreatestCommonDivisor(A,B), expected);
     }
 
+    @ParameterizedTest
+    @MethodSource("isPerfectNumberProvider")
+    public void isPerfectNumber(int number, boolean expected) {
+        assertEquals(Looper.isPerfectNumber(number), expected);
+    }
+
     public static Stream<Arguments> isPalindromeProvider() {
         return Stream.of(
                 Arguments.arguments(12321, true),
@@ -97,6 +103,15 @@ class LooperTest {
             Arguments.arguments(25, 15, 5),
             Arguments.arguments(9, 18, -1),
             Arguments.arguments(81, 153, 9)
+        );
+    }
+
+    public static Stream<Arguments> isPerfectNumberProvider() {
+        return Stream.of(
+            Arguments.arguments(6, true),
+            Arguments.arguments(28, true),
+            Arguments.arguments(5, false),
+            Arguments.arguments(-1, false)
         );
     }
 }

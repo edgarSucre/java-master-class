@@ -78,4 +78,16 @@ public class Looper {
         }
         return minimun;
     }
+
+    public static boolean isPerfectNumber(int number) {
+        if (number < 1) return false;
+
+        int i = 1;
+        int sum = 0;
+        while (i < number) {
+            sum += (number % i == 0) ? i : 0;
+            i++;
+        }
+        return sum == number;
+    }
 }
