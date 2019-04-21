@@ -52,6 +52,18 @@ class LooperTest {
         assertEquals(Looper.isPerfectNumber(number), expected);
     }
 
+    @ParameterizedTest
+    @MethodSource("getEvenDigitSumProvider")
+    public void getEvenDigitSum(int number, int expected) {
+        assertEquals(Looper.getEvenDigitSum(number), expected);
+    }
+
+    @ParameterizedTest
+    @MethodSource("canPackProvider")
+    public void canPack(int bigCount, int smallCount, int goal, boolean expected) {
+        assertEquals(Looper.canPack(bigCount, smallCount, goal), expected);
+    }
+
     public static Stream<Arguments> isPalindromeProvider() {
         return Stream.of(
                 Arguments.arguments(12321, true),
@@ -71,6 +83,7 @@ class LooperTest {
                 Arguments.arguments(-10, -1)
         );
     }
+
 
     public static Stream<Arguments> getEvenDigitsSumProvider() {
         return Stream.of(
@@ -112,6 +125,26 @@ class LooperTest {
             Arguments.arguments(28, true),
             Arguments.arguments(5, false),
             Arguments.arguments(-1, false)
+        );
+    }
+
+    public static Stream<Arguments> getEvenDigitSumProvider() {
+        return Stream.of(
+            Arguments.arguments(123456789, 20),
+            Arguments.arguments(252, 4),
+            Arguments.arguments(-22, -1)
+        );
+    }
+
+    public static Stream<Arguments> canPackProvider() {
+        return Stream.of(
+            Arguments.arguments(1, 0, 4, false),
+            Arguments.arguments(1, 0, 5, true),
+            Arguments.arguments(0, 5, 4, true),
+            Arguments.arguments(2, 2, 11, true),
+            Arguments.arguments(4, 18, 19, true),
+            Arguments.arguments(-3, 2, 12, false),
+            Arguments.arguments(2, 1, 12, false)
         );
     }
 }

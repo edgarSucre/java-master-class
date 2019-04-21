@@ -27,6 +27,18 @@ public class Looper {
         return last + first;
     }
 
+    public static int getEvenDigitSum(int number) {
+        if (number < 0) return -1;
+
+        int sum = 0;
+        while (number > 0) {
+            int even = number % 10;
+            sum += (even % 2 == 0) ? even : 0;
+            number /= 10;
+        }
+        return sum;
+    }
+
     public static int getEvenDigitsSum(int number) {
         if (number < 0) return -1;
 
@@ -89,5 +101,21 @@ public class Looper {
             i++;
         }
         return sum == number;
+    }
+
+    /**
+     *
+     * @param bigCount represents 5 kilos bag
+     * @param smallCount represents 1 kilo bag
+     * @param goal represents the amount of kilos needed to assemble a package
+     * @return
+     */
+    public static boolean canPack(int bigCount, int smallCount, int goal) {
+        if (bigCount < 0 || smallCount < 0 || goal < 0) return false;
+        if (smallCount >= goal) return true;
+
+        int needed = goal / 5;
+        int big = (bigCount >= needed) ? needed : bigCount;
+        return big * 5 + smallCount >= goal;
     }
 }
