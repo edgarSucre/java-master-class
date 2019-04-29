@@ -118,4 +118,26 @@ public class Looper {
         int big = (bigCount >= needed) ? needed : bigCount;
         return big * 5 + smallCount >= goal;
     }
+
+    /**
+     *
+     * @param number to get the largest factor from
+     * @return get all the primes wich product is equal to number, then return the largest
+     */
+    public static int getLargestPrime(int number) {
+        if (number <= 1) return -1;
+
+        int divisor = 2;
+        while (number > divisor) {
+            if (number % divisor == 0) {
+                number = number / divisor;
+                divisor = 2;
+            }
+            else {
+                divisor++;
+            }
+        }
+
+        return divisor;
+    }
 }

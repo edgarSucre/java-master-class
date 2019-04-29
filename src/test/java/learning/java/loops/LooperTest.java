@@ -64,6 +64,12 @@ class LooperTest {
         assertEquals(Looper.canPack(bigCount, smallCount, goal), expected);
     }
 
+    @ParameterizedTest
+    @MethodSource("getLargestPrimeProvider")
+    public void getLargestPrime(int number, int expected) {
+        assertEquals(Looper.getLargestPrime(number), expected);
+    }
+
     public static Stream<Arguments> isPalindromeProvider() {
         return Stream.of(
                 Arguments.arguments(12321, true),
@@ -145,6 +151,16 @@ class LooperTest {
             Arguments.arguments(4, 18, 19, true),
             Arguments.arguments(-3, 2, 12, false),
             Arguments.arguments(2, 1, 12, false)
+        );
+    }
+
+    public static Stream<Arguments> getLargestPrimeProvider() {
+        return Stream.of(
+            Arguments.arguments(21, 7),
+            Arguments.arguments(217, 31),
+            Arguments.arguments(0, -1),
+            Arguments.arguments(45, 5),
+            Arguments.arguments(-1, -1)
         );
     }
 }
