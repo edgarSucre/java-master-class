@@ -9,6 +9,6 @@ public class PlaceHolder {
     }
 
     public static void main(String args[]) {
-        Looper.isPalindrome(2000);
+        Looper.printSquareStar(5);
     }
 }
